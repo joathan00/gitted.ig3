@@ -1,4 +1,4 @@
-# Repertoire Sysconf de la machine ESIPE IG3 - [NOM] [Prénom]
+# Repertoire Sysconf de la machine ESIPE IG3 - DURAND Jonathan
 
 
 ## Git subtrees
