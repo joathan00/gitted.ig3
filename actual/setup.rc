@@ -1,1 +1,1 @@
-sysconf_require_packages nano openssh-server
+sysconf_require_packages nano openssh-server mapserver-bin
