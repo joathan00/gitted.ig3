@@ -12,10 +12,10 @@ MAP
 
         WEB
             METADATA
-                        "wms_enable_request"    "*"
-                        "wms_srs"                "EPSG:4326"
-                        "wms_title"                "admin & population"
-                        "wms_online_resource"        "http://localhost/?map=/etc/geo/map/wms.map&"
+                        "wfs_srs"                "EPSG:4326"
+                        "wfs_title"                "admin & population"
+                        "wfs_online_resource"        "http://localhost/?map=/etc/geo/map/wms.map&"
+			"wfs_enable_request" "*" 
             END
         END
 
@@ -28,7 +28,11 @@ LAYER
         NAME             ADMIN
         #CONNECTIONTYPE   OGR
         METADATA
-                          "wms_title"               "admin_10m"
+                          "wfs_title"               "admin_10m"
+			"wfs_srs"           "EPSG:4326" ## REQUIRED
+			"gml_include_items" "all" ## Optional (serves all attributes for layer)
+      			"gml_featureid"     "ADMIN" ## REQUIRED
+			"wfs_enable_request" "*"
         END
         DATA       "ne_10m_admin_0_countries"
         STATUS             ON

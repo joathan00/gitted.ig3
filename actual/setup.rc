@@ -1,2 +1,24 @@
 apt-get update
-sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx
+sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx libxml2-dev libpq-dev
+chmod +x /etc/init.d/mapserv
+/etc/init.d/mapserv start
+/etc/init.d/nginx start
+#install de postgres/postgis
+apt-get install postgresql postgresql-contrib postgis*
+su -c "createuser --superuser gisuser" postgres
+su -c "createdb -E UTF8 -O gisuser gis" postgres
+export PGPASSWORD='something'
+echo "ALTER USER gisuser WITH PASSWORD 'something';" | psql -d gis
+echo "CREATE EXTENSION postgis;" | psql -d gis
+#Ajout du shape à la base
+shp2pgsql -I -s 4326 /var/lib/geo/raster/admin/ne_10m_admin_0_countries.shp admin_countries | psql -h 127.0.0.1 -U gisuser gis
+cd /usr/
+#install de tinyows
+wget http://download.osgeo.org/mapserver/tinyows-1.1.0.tar.bz2
+tar xvjf tinyows-1.1.0.tar.bz2
+cd /usr/tinyows-1.1.0/
+./configure
+make
+sudo make install
+cp tinyows /usr/lib/cgi-bin/
+
