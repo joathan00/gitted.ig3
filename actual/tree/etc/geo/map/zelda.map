@@ -5,7 +5,7 @@ NAME MYMAP
     SIZE         800 800
     SHAPEPATH    "/var/lib/geo/raster/zelda/"
     IMAGECOLOR   255 255 255
-    FONTSET     "/zelda/map/data/fonts.list"
+    FONTSET     "/var/lib/geo/raster/zelda/fonts.list"
 
     PROJECTION   
         "init=epsg:4326"
@@ -384,17 +384,17 @@ NAME MYMAP
 		OPACITY     50
 	END
 	
-	LAYER
-	    NAME    firone
-	    METADATA
-	        "wms_title"     "firone"
-	    END
-	    DATA    "Province de Firone_georef.tif"
-	    STATUS  ON
-	    TYPE    RASTER
-		PROCESSING    "RESAMPLE=NEAREST"
-		OPACITY     50
-	END
+	#LAYER
+	#    NAME    firone
+	#    METADATA
+	#        "wms_title"     "firone"
+	#    END
+	#    DATA    "Province de Firone_georef.tif"
+	#    STATUS  ON
+	#    TYPE    RASTER
+	#	PROCESSING    "RESAMPLE=NEAREST"
+	#	OPACITY     50
+	#END
 
 
 

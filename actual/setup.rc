@@ -1,1 +1,2 @@
-sysconf_require_packages nano openssh-server mapserver-bin
+apt-get update
+sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx
