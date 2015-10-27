@@ -8,8 +8,10 @@ apt-get install postgresql postgresql-contrib postgis*
 su -c "createuser --superuser gisuser" postgres
 su -c "createdb -E UTF8 -O gisuser gis" postgres
 export PGPASSWORD='something'
+su postgres
 echo "ALTER USER gisuser WITH PASSWORD 'something';" | psql -d gis
 echo "CREATE EXTENSION postgis;" | psql -d gis
+exit
 #Ajout du shape à la base
 shp2pgsql -I -s 4326 /var/lib/geo/raster/admin/ne_10m_admin_0_countries.shp admin_countries | psql -h 127.0.0.1 -U gisuser gis
 cd /usr/
