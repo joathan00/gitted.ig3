@@ -50,6 +50,13 @@ server {
 
         }
 
+	location /mapcache/ {
+            fastcgi_pass   127.0.0.1:9997;
+            fastcgi_index  mapcache?*;
+            fastcgi_param  SCRIPT_FILENAME  /usr/lib/cgi-bin/mapcache$fastcgi_script_name;
+            include fastcgi_params;
+        }
+
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#
 	#location ~ \.php$ {
