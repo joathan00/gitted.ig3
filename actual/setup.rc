@@ -1,10 +1,9 @@
 apt-get update
-sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx libxml2-dev libpq-dev
+sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx libxml2-dev libpq-dev postgresql postgresql-contrib postgis
 chmod +x /etc/init.d/mapserv
 /etc/init.d/mapserv start
 /etc/init.d/nginx start
 #install de postgres/postgis
-apt-get install postgresql postgresql-contrib postgis*
 su -c "createuser --superuser gisuser" postgres
 su -c "createdb -E LATIN1 -O gisuser gis" postgres
 export PGPASSWORD='something'
