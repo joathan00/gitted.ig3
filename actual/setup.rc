@@ -6,7 +6,7 @@ chmod +x /etc/init.d/mapserv
 #install de postgres/postgis
 apt-get install postgresql postgresql-contrib postgis*
 su -c "createuser --superuser gisuser" postgres
-su -c "createdb -E UTF8 -O gisuser gis" postgres
+su -c "createdb -E LATIN1 -O gisuser gis" postgres
 export PGPASSWORD='something'
 su postgres
 echo "ALTER USER gisuser WITH PASSWORD 'something';" | psql -d gis
