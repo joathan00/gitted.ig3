@@ -1,5 +1,7 @@
-<tinyows online_resource="http://127.0.0.1/cgi-bin/tinyows"
-         schema_dir="/usr/local/share/tinyows/schema/">
+<tinyows online_resource="http://127.0.0.1/tinyows"
+         schema_dir="/usr/local/share/tinyows/schema/"
+	 log="/tmp/tiny.log"
+	 log_level="15">
 
 <pg host="127.0.0.1" user="gisuser" password="something" dbname="gis" port="5432"/>
 
@@ -13,8 +15,8 @@
 <layer retrievable="1"
        writable="1"
        ns_prefix="tows"
-       ns_uri="http://www.tinyows.org/"
-       name="frida"
+       ns_uri="http://localhost/"
+       name="admincountries"
        title="Frida Parks" />
 
 </tinyows>

@@ -40,7 +40,15 @@ server {
             fastcgi_param  SCRIPT_FILENAME  /usr/lib/cgi-bin/mapserv$fastcgi_script_name;
             include fastcgi_params;
  
-}
+	}
+
+	location /tinyows/ {
+            fastcgi_pass   127.0.0.1:9998;
+            fastcgi_index  tinyows?*;
+            fastcgi_param  SCRIPT_FILENAME  /usr/lib/cgi-bin/tinyows$fastcgi_script_name;
+            include fastcgi_params;
+
+        }
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#
