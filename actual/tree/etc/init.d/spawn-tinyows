@@ -1,0 +1,63 @@
+#! /bin/sh
+#
+# description: tinyowser Service Manager
+# processname: lt-tinyows
+# pidfile: /var/run/tinyows.pid
+# Source function library.
+#. /etc/init.d/functions
+# Check that networking is up.
+#. /etc/sysconfig/network
+if [ "$NETWORKING" = "no" ]
+then
+        exit 0
+fi
+PREFIX=/usr
+NAME=tinyows
+PID=/var/run/tinyows.pid
+DAEMON=$PREFIX/bin/spawn-fcgi
+DAEMON_OPTS=" -a 127.0.0.1 -p 9998 -F 4 -u www-data -U www-data -P $PID $PREFIX/lib/cgi-bin/tinyows"
+start () {
+    echo -n $"Starting $NAME "
+        exec $DAEMON $DAEMON_OPTS >> /dev/null
+        daemon --pidfile $PID
+        RETVAL=$?
+        echo
+    [ $RETVAL -eq 0 ]
+}
+stop () {
+    echo -n $"Stopping $NAME "
+        killproc -p $PID
+        #make sure all tinyowsers are closed
+        pkill -f lt-tinyows
+        RETVAL=$?
+        echo
+    if [ $RETVAL -eq 0 ] ; then
+                rm -f $PID
+        fi
+}
+restart () {
+    stop
+    start
+}
+# See how we were called.
+case "$1" in
+  start)
+        start
+    ;;
+  stop)
+        stop
+    ;;
+  status)
+    status lt-tinyows
+        RETVAL=$?
+        ;;
+  restart)
+    restart
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|status|restart}"
+        RETVAL=2
+        ;;
+esac
+exit $RETVAL
+

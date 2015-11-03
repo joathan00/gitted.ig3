@@ -1,0 +1,50 @@
+MAP
+    IMAGETYPE    PNG
+    EXTENT       -0.0176000000000000 -79.8512000000000057 69.0799999999999983 0.0176000000000000
+    SIZE         800 800
+    IMAGECOLOR   255 255 255
+
+    PROJECTION
+        "init=epsg:4326"
+    END
+
+        WEB
+            METADATA
+                        "tinyows_schema_dir" "/usr/local/share/tinyows/schema/"
+                        "tinyows_onlineresource" "127.0.0.1/tinyows.fcgi"
+                        "wfs_srs"                "EPSG:4326"
+                        "wfs_title"                "admin & population"
+                        "wfs_online_resource"        "http://localhost/tinyows/?map=/etc/geo/map/wfst.map&"
+                        "wfs_enable_request" "*"
+                        wfs_namespace_prefix "tows"
+            END
+        END
+
+
+
+LAYER
+        NAME             ADMIN_CTR
+        METADATA
+                    'wfs_namespace_prefix' 'tows'
+                    'wfs_namespace_uri' 'http://localhost/'
+                    'tinyows_table'  'admin_countries'
+                    'tinyows_writable' '1'
+                    'tinyows_retrievable' '1'
+                          "wfs_title"               "admin_ctr"
+                        "wfs_srs"           "EPSG:4326" ## REQUIRED
+                        "gml_include_items" "all" ## Optional (serves all attributes for layer)
+                        "gml_featureid"     "gid" ## REQUIRED
+                        "wfs_enable_request" "*"
+        END
+        CONNECTIONTYPE postgis
+        CONNECTION "host=127.0.0.1 user=gisuser password=something dbname=gis port=5432"
+        DUMP true
+        DATA "geom FROM admin_countries"
+        STATUS             ON
+        TYPE             POLYGON
+
+
+END
+
+
+END
