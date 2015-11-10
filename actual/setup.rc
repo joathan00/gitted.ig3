@@ -1,5 +1,5 @@
 apt-get update
-sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx libxml2-dev libpq-dev libfcgi-dev postgresql postgresql-contrib postgis mapcache-cgi mapcache-tools
+sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx libxml2-dev libpq-dev libfcgi-dev postgresql postgresql-contrib postgis* mapcache-cgi mapcache-tools
 #libjpeg-dev libcurl4-nss-dev libapr1-dev
 #sysconf_require_packages nano openssh-server mapserver-bin cgi-mapserver spawn-fcgi nginx libxml2-dev libpq-dev postgresql postgresql-contrib postgis
 chmod +x /etc/init.d/mapserv
@@ -11,6 +11,7 @@ su -c "createdb -E LATIN1 -O gisuser gis" postgres
 export PGPASSWORD='something'
 echo "ALTER USER gisuser WITH PASSWORD 'something';" | sudo -u postgres psql
 echo "CREATE EXTENSION postgis;" | sudo -u postgres psql
+echo "CREATE EXTENSION postgis_topology;" | sudo -u postgres psql
 #Ajout du shape à la base
 shp2pgsql -I -s 4326 /var/lib/geo/raster/admin/ne_10m_admin_0_countries.shp admin_countries | psql -h 127.0.0.1 -U gisuser gis
 cd /usr/
@@ -25,4 +26,10 @@ cp tinyows /usr/lib/cgi-bin/
 
 #Mapcache
 export MAPCACHE_CONFIG_FILE=/etc/mapcache.xml
+
+/etc/init.d/spawn-tinyows start
+/etc/init.d/spawn-mapcache start
+
+
+/etc/init.d/nginx restart
 

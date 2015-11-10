@@ -16,7 +16,7 @@
        writable="1"
        ns_prefix="tows"
        ns_uri="http://localhost/"
-       name="admincountries"
+       name="admin_countries"
        title="Frida Parks" />
 
 </tinyows>

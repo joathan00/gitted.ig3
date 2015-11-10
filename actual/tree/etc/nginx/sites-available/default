@@ -28,11 +28,14 @@ server {
 	# include snippets/snakeoil.conf;
 
 	#root /usr/lib/cgi-bin/mapserv;
+	root /var/www;
 
 	# Add index.php to the list if you are using PHP
-	index index.html index.htm index.nginx-debian.html;
+	index index.html index.htm index.nginx-debian.html webmapping.gmaps.html;
 
-	server_name _;
+	server_name localhost;
+
+	
 
 	location /map/ {
             fastcgi_pass   127.0.0.1:9999;
@@ -56,6 +59,24 @@ server {
             fastcgi_param  SCRIPT_FILENAME  /usr/lib/cgi-bin/mapcache$fastcgi_script_name;
             include fastcgi_params;
         }
+
+	location ~ ^/mapcache(?<path_info>/.*|$) {
+		set $url_prefix "/mapcache";
+		#mapcache /etc/mapcache.xml;
+		error_page 404 = @fastcgi_mapcache;
+	}
+   
+	location @fastcgi_mapcache {
+		fastcgi_pass   localhost:9997;
+		fastcgi_param  QUERY_STRING     $query_string;
+		fastcgi_param  REQUEST_METHOD   $request_method;
+		fastcgi_param  CONTENT_TYPE     $content_type;
+		fastcgi_param  CONTENT_LENGTH   $content_length;
+		fastcgi_param  PATH_INFO        $path_info;
+		fastcgi_param  SERVER_NAME      $server_name;
+		fastcgi_param  SERVER_PORT      $server_port;
+		fastcgi_param  SCRIPT_NAME      "/mapcache";
+	}
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#

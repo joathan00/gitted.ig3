@@ -1,0 +1,10 @@
+<OGRVRTDataSource>
+    <OGRVRTLayer name="parc_naturel_regionaux">
+        <SrcDataSource relativeToVRT="1">parcs-naturels-regionaux.lonlat.csv</SrcDataSource>
+	<SrcLayer>parcs-naturels-regionaux.lonlat</SrcLayer>        
+	<GeometryType>wkbPoint</GeometryType>
+        <LayerSRS>WGS84</LayerSRS>
+        <GeometryField encoding="PointFromColumns" x="lon" y="lat"/>
+    </OGRVRTLayer>
+</OGRVRTDataSource>
+

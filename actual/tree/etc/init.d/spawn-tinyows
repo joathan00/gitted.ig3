@@ -26,7 +26,7 @@ start () {
 }
 stop () {
     echo -n $"Stopping $NAME "
-        killproc -p $PID
+        kill $PID
         #make sure all tinyowsers are closed
         pkill -f lt-tinyows
         RETVAL=$?

@@ -1,25 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<mapcache mode="combined_mirror">
+<mapcache>
    <cache name="disk" type="disk">
       <base>/tmp</base>
       <symlink_blank/>
    </cache>
 
-   <source name="vmap0" type="wms">
+   <source name="admin_countries" type="wms">
       <getmap>
-         <params>
-            <FORMAT>image/jpeg</FORMAT>
-         </params>
-      </getmap>
+      <params>
+         <FORMAT>image/png</FORMAT>
+         <LAYERS>ADMIN</LAYERS>
+	 <MAP>/etc/geo/map/wms.map</MAP>
+      </params>
+   </getmap>
 
       <http>
          <url>http://localhost/map/?</url>
       </http>
    </source>
 
-   <tileset name="mirror">
-      <source>vmap0</source>
+<source name="zelda_source" type="wms">
+      <getmap>
+      <params>
+         <FORMAT>image/png</FORMAT>
+         <LAYERS>MYMAP</LAYERS>
+	 <MAP>/etc/geo/map/zelda.map</MAP>
+      </params>
+   </getmap>
+
+      <http>
+         <url>http://localhost/map/?</url>
+      </http>
+   </source>
+
+   <tileset name="admin_countries">
+      <source>admin_countries</source>
+      <cache>disk</cache>
+      <grid>WGS84</grid>
+      <grid>g</grid>
+      <format>JPEG</format>
+      <metatile>5 5</metatile>
+      <metabuffer>10</metabuffer>
+      <expires>3600</expires>
+   </tileset>
+
+<tileset name="zelda">
+      <source>zelda_source</source>
       <cache>disk</cache>
       <grid>WGS84</grid>
       <grid>g</grid>
@@ -31,18 +57,7 @@
 
 
    <default_format>JPEG</default_format>
-<!--
-   <service type="wms" enabled="true">
-      <full_wms>assemble</full_wms>
-      <resample_mode>bilinear</resample_mode>
-      <format>JPEG</format>
-      <maxsize>4096</maxsize>
-      <forwarding_rule name="catch all">
-            <http>
-               <url>http://localhost/map/?map=/etc/geo/map/wms.map&amp;</url>
-            </http>
-      </forwarding_rule>
-   </service>-->
+
    <service type="wmts" enabled="true"/>
    <service type="tms" enabled="true"/>
    <service type="kml" enabled="true"/>
@@ -54,3 +69,5 @@
    <lock_dir>/tmp</lock_dir>
 
 </mapcache>
+
+
