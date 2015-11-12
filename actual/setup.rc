@@ -10,8 +10,8 @@ su -c "createuser --superuser gisuser" postgres
 su -c "createdb -E LATIN1 -O gisuser gis" postgres
 export PGPASSWORD='something'
 echo "ALTER USER gisuser WITH PASSWORD 'something';" | sudo -u postgres psql
-echo "CREATE EXTENSION postgis;" | sudo -u postgres psql
-echo "CREATE EXTENSION postgis_topology;" | sudo -u postgres psql
+echo "CREATE EXTENSION postgis;" | psql -h 127.0.0.1 -U gisuser gis
+echo "CREATE EXTENSION postgis_topology;" | psql -h 127.0.0.1 -U gisuser gis
 #Ajout du shape à la base
 shp2pgsql -I -s 4326 /var/lib/geo/raster/admin/ne_10m_admin_0_countries.shp admin_countries | psql -h 127.0.0.1 -U gisuser gis
 cd /usr/
