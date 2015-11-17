@@ -12,7 +12,7 @@ MAP
             METADATA
                         "tinyows_schema_dir" "/usr/local/share/tinyows/schema/"
                         "tinyows_onlineresource" "127.0.0.1/tinyows.fcgi"
-                        "wfs_srs"                "EPSG:4326"
+                        "wfs_srs"                "EPSG:4326  EPSG:3857"
                         "wfs_title"                "admin & population"
                         "wfs_online_resource"        "http://localhost/tinyows/?map=/etc/geo/map/wfst.map&"
                         "wfs_enable_request" "*"
@@ -31,7 +31,7 @@ LAYER
                     'tinyows_writable' '1'
                     'tinyows_retrievable' '1'
                           "wfs_title"               "admin_ctr"
-                        "wfs_srs"           "EPSG:4326" ## REQUIRED
+                        "wfs_srs"           "EPSG:4326 EPSG:3857" ## REQUIRED
                         "gml_include_items" "all" ## Optional (serves all attributes for layer)
                         "gml_featureid"     "gid" ## REQUIRED
                         "wfs_enable_request" "*"

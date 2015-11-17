@@ -1,72 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <mapcache>
-   <cache name="disk" type="disk">
-      <base>/tmp</base>
-      <symlink_blank/>
-   </cache>
+    <metadata>
+     <title>map service</title>
+     <abstract>Contains various cached maps</abstract>
+    </metadata>
+
+    <cache name="disk" type="disk">
+     <base>/tmp/</base>
+    </cache>
 
    <source name="admin_countries" type="wms">
-      <getmap>
-      <params>
-         <FORMAT>image/png</FORMAT>
+     <getmap>
+       <params>
+         <FORMAT>image/PNG</FORMAT>
          <LAYERS>ADMIN</LAYERS>
 	 <MAP>/etc/geo/map/wms.map</MAP>
-      </params>
-   </getmap>
+       </params>
+     </getmap>
+     <http>
+       <url>http://localhost/map/?</url>
+     </http>
+    </source>
 
-      <http>
-         <url>http://localhost/map/?</url>
-      </http>
-   </source>
-
-<source name="zelda_source" type="wms">
-      <getmap>
-      <params>
-         <FORMAT>image/png</FORMAT>
+   <source name="zelda" type="wms">
+     <getmap>
+       <params>
+         <FORMAT>image/PNG</FORMAT>
          <LAYERS>MYMAP</LAYERS>
 	 <MAP>/etc/geo/map/zelda.map</MAP>
-      </params>
-   </getmap>
-
-      <http>
-         <url>http://localhost/map/?</url>
-      </http>
-   </source>
-
-   <tileset name="admin_countries">
-      <source>admin_countries</source>
-      <cache>disk</cache>
-      <grid>WGS84</grid>
-      <grid>g</grid>
-      <format>JPEG</format>
-      <metatile>5 5</metatile>
-      <metabuffer>10</metabuffer>
-      <expires>3600</expires>
-   </tileset>
-
-<tileset name="zelda">
-      <source>zelda_source</source>
-      <cache>disk</cache>
-      <grid>WGS84</grid>
-      <grid>g</grid>
-      <format>JPEG</format>
-      <metatile>5 5</metatile>
-      <metabuffer>10</metabuffer>
-      <expires>3600</expires>
-   </tileset>
+       </params>
+     </getmap>
+     <http>
+       <url>http://localhost/map/?</url>
+     </http>
+    </source>
 
 
-   <default_format>JPEG</default_format>
 
-   <service type="wmts" enabled="true"/>
-   <service type="tms" enabled="true"/>
-   <service type="kml" enabled="true"/>
-   <service type="gmaps" enabled="true"/>
-   <service type="ve" enabled="true"/>
-   <service type="demo" enabled="true"/>
 
-   <errors>report</errors>
-   <lock_dir>/tmp</lock_dir>
+    <tileset name="admin_countries">
+     <source>admin_countries</source>
+     <cache>disk</cache>
+     <grid>WGS84</grid>
+     <grid>GoogleMapsCompatible</grid>
+   
+     <format>PNG</format>
+     <metatile>5 5</metatile>
+     <metabuffer>20</metabuffer>
+     <expires>3600</expires>
+    </tileset>
+
+    <tileset name="zelda">
+     <source>zelda</source>
+     <cache>disk</cache>
+     <grid>WGS84</grid>
+     <grid>GoogleMapsCompatible</grid>
+     <format>PNG</format>
+     <metatile>5 5</metatile>
+     <metabuffer>20</metabuffer>
+     <expires>3600</expires>
+    </tileset>
+
+    <default_format>PNG</default_format>
+
+    <service type="wms" enabled="true">
+     <full_wms>assemble</full_wms>
+     <resample_mode>bilinear</resample_mode>
+     <format>PNG</format>
+     <maxsize>4096</maxsize>
+    </service>
+    <service type="wmts" enabled="true"/>
+    <service type="tms" enabled="true"/>
+    <service type="kml" enabled="true"/>
+    <service type="gmaps" enabled="true"/>
+    <service type="ve" enabled="true"/>
+    <service type="demo" enabled="true"/>
+
+    <errors>report</errors>
+    <lock_dir>/tmp/</lock_dir>
+    <log_level>debug</log_level>
 
 </mapcache>
 

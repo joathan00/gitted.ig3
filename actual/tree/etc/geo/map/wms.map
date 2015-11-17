@@ -5,14 +5,14 @@ MAP
     SHAPEPATH    "/var/lib/geo/raster/admin/"
     IMAGECOLOR   255 255 255
     #FONTSET     "/var/lib/geo/map/data/fonts.list"
-
+    TRANSPARENT TRUE
     PROJECTION   
         "init=epsg:4326"
     END
 
         WEB
             METADATA
-                        "wms_srs"                "EPSG:4326"
+                        "wms_srs"                "EPSG:4326 EPSG:3857"
                         "wms_title"                "admin & population"
                         "wms_online_resource"        "http://localhost/?map=/etc/geo/map/wms.map&"
 			"wms_enable_request" "*" 
@@ -29,7 +29,7 @@ LAYER
         #CONNECTIONTYPE   OGR
         METADATA
                           "wms_title"               "admin_10m"
-			"wms_srs"           "EPSG:4326" ## REQUIRED
+			"wms_srs"           "EPSG:4326  EPSG:3857" ## REQUIRED
 			"gml_include_items" "all" ## Optional (serves all attributes for layer)
       			"gml_featureid"     "ADMIN" ## REQUIRED
 			"wms_enable_request" "*"

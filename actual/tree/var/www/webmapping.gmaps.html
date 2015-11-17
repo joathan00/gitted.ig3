@@ -20,6 +20,7 @@
     }
     </style>
     <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
     <script type="text/javascript">
 
 var map;
@@ -27,62 +28,51 @@ function init(){
     map = new OpenLayers.Map( 'map', {
         displayProjection: new OpenLayers.Projection("EPSG:4326")
     } );
-
-    var zelda_WGS84_wmts_layer = new OpenLayers.Layer.WMTS({
-        name: "GoogleMaps",
-        url: "http://localhost/mapcache/wmts/",
-        layer: 'zelda',
-        matrixSet: 'WGS84',
-        format: 'image/jpeg',
-        style: 'default',
-        gutter:0,buffer:0,isBaseLayer:true,transitionEffect:'resize',
-        resolutions:[0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516],
-        zoomOffset:0,
-        units:"dd",
-        maxExtent: new OpenLayers.Bounds(-180.000000,-90.000000,180.000000,90.000000),
-        projection: new OpenLayers.Projection("EPSG:4326".toUpperCase()),
-        sphericalMercator: false
-      }
-    );
-    map.addLayer(zelda_WGS84_wmts_layer);
-
-    var zelda_WGS84_wmts_layer = new OpenLayers.Layer.WMTS({
-        name: "zelda-WGS84-WMTS",
-        url: "http://localhost/mapcache/wmts/",
-        layer: 'zelda',
-        matrixSet: 'WGS84',
-        format: 'image/jpeg',
-        style: 'default',
-        gutter:0,buffer:0,isBaseLayer:true,transitionEffect:'resize',
-        resolutions:[0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516],
-        zoomOffset:0,
-        units:"dd",
-        maxExtent: new OpenLayers.Bounds(-180.000000,-90.000000,180.000000,90.000000),
-        projection: new OpenLayers.Projection("EPSG:4326".toUpperCase()),
-        sphericalMercator: false
-      }
-    );
-    map.addLayer(zelda_WGS84_wmts_layer);
-
+layer = new OpenLayers.Layer.OSM( "Simple OSM Map");
+map.addLayer(layer);
 
     var admin_countries_WGS84_wmts_layer = new OpenLayers.Layer.WMTS({
+   
         name: "admin_countries-WGS84-WMTS",
         url: "http://localhost/mapcache/wmts/",
         layer: 'admin_countries',
-        matrixSet: 'WGS84',
-        format: 'image/jpeg',
+        matrixSet: 'GoogleMapsCompatible',
+        format: 'image/png',
         style: 'default',
-        gutter:0,buffer:0,isBaseLayer:true,transitionEffect:'resize',
-        resolutions:[0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516],
+    transparent: true,   
+        gutter:0,buffer:0,isBaseLayer:false,transitionEffect:'resize',
+       // resolutions:[0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516],
         zoomOffset:0,
-        units:"dd",
-        maxExtent: new OpenLayers.Bounds(-180.000000,-90.000000,180.000000,90.000000),
-        projection: new OpenLayers.Projection("EPSG:4326".toUpperCase()),
+    //units:"dd",
+        //maxExtent: new OpenLayers.Bounds(-180.000000,-90.000000,180.000000,90.000000),
+        projection: new OpenLayers.Projection("EPSG:3857".toUpperCase()),
         sphericalMercator: false
       }
     );
     map.addLayer(admin_countries_WGS84_wmts_layer);
 
+  
+    var zelda_WGS84_wmts_layer = new OpenLayers.Layer.WMTS({
+        name: "zelda-WGS84-WMTS",
+        url: "http://localhost/mapcache/wmts/",
+        layer: 'zelda',
+        matrixSet: 'GoogleMapsCompatible',
+        format: 'image/png',
+        style: 'default',
+    transparent: true,
+
+        gutter:0,buffer:0,isBaseLayer:false,transitionEffect:'resize',
+        //resolutions:[0.70312500000000000000,0.35156250000000000000,0.17578125000000000000,0.08789062500000000000,0.04394531250000000000,0.02197265625000000000,0.01098632812500000000,0.00549316406250000000,0.00274658203125000000,0.00137329101562500000,0.00068664550781250000,0.00034332275390625000,0.00017166137695312500,0.00008583068847656250,0.00004291534423828120,0.00002145767211914060,0.00001072883605957030,0.00000536441802978516],
+        zoomOffset:0,
+  //      units:"dd",
+//    maxExtent: new OpenLayers.Bounds(-1959.22,-15444000,7689950,1959.22),
+        projection: new OpenLayers.Projection("EPSG:3857".toUpperCase()),
+        sphericalMercator: false
+      }
+    );
+    map.addLayer(zelda_WGS84_wmts_layer);
+
+   
 
     if(!map.getCenter())
         map.zoomToMaxExtent();
@@ -97,4 +87,6 @@ function init(){
     </div>
 </body>
 </html>
+
+
 
